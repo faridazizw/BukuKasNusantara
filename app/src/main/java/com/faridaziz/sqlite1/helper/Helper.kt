@@ -67,6 +67,28 @@ class Helper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         db.close()
     }
 
+    fun addUser(username : String, password : String){
+        val values = ContentValues()
+
+        values.put(Helper.USERNAME, username)
+        values.put(Helper.PASSWORD, password)
+
+        val db = this.writableDatabase
+
+        db.insert(Helper.TABLE_NAME2, null, values)
+        db.close()
+    }
+
+//    fun getUser(): Cursor? {
+//        val db = this.readableDatabase
+//        return db.rawQuery("SELECT * FROM " + Helper.TABLE_NAME2, null)
+//    }
+
+    fun cekLogin(username: String, password: String): Cursor? {
+        val db = this.readableDatabase
+        return db.rawQuery("SELECT * FROM " + Helper.TABLE_NAME2 + " WHERE " + Helper.USERNAME + " = '$username' " + " AND " + Helper.PASSWORD + " = '$password' ", null)
+    }
+
     // below method is to get
     // all data from our database
     fun getUang(): Cursor? {
