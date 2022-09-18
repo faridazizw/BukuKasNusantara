@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">BukuKasNusantara</string>
+    <string name="list_img">"@drawable/in"</string>
+</resources>
