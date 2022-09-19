@@ -13,12 +13,13 @@ import java.util.*
 class TambahPemasukanActivity : AppCompatActivity() {
 
     var button_date: ImageButton? = null
-    var textview_date: EditText? = null
+    var textview_date: TextView? = null
     var  button_simpan: Button? = null
     var nominalSimpan: EditText? = null
     var ed_keterangan: EditText? = null
     var cal = Calendar.getInstance()
     var btn_kembali: Button? = null
+    var username = "username"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +31,8 @@ class TambahPemasukanActivity : AppCompatActivity() {
         nominalSimpan = findViewById(R.id.nominalPemasukan)
         ed_keterangan = findViewById(R.id.keteranganPemasukan)
         btn_kembali = findViewById(R.id.btn_kembali)
+
+        username = intent.getStringExtra(MainActivity.extra_username).toString()
 
         val dateSetListener = object : DatePickerDialog.OnDateSetListener {
             override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int,
@@ -85,16 +88,12 @@ class TambahPemasukanActivity : AppCompatActivity() {
                     db.addUang(status,tanggal, nominal, keterangan, img)
 
                     // at last, clearing edit texts
-                    textview_date!!.text.clear()
                     nominalSimpan!!.text.clear()
                     ed_keterangan!!.text.clear()
 
                     Toast.makeText(this@TambahPemasukanActivity,"Data Berhasil Disimpan!", Toast.LENGTH_SHORT).show()
-                    val back = Intent(this@TambahPemasukanActivity, MainActivity::class.java)
                     finish()
-                    overridePendingTransition(0, 0)
-                    startActivity(back)
-                    overridePendingTransition(0, 0)
+                    onBackPressed()
                 }
 
             }
@@ -117,8 +116,13 @@ class TambahPemasukanActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         val back = Intent(this@TambahPemasukanActivity, MainActivity::class.java)
+        back.putExtra(MainActivity.extra_username, username)
         overridePendingTransition(0, 0)
         startActivity(back)
         overridePendingTransition(0, 0)
+    }
+
+    companion object{
+        const val extra_username = "username"
     }
 }

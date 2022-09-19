@@ -97,6 +97,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                         ed_password.text.clear()
 
                         val intent = Intent(this, MainActivity::class.java)
+                        intent.putExtra(MainActivity.extra_username, username)
                         startActivity(intent)
                     }
                     else{

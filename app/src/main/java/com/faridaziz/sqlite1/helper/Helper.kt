@@ -89,6 +89,16 @@ class Helper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         return db.rawQuery("SELECT * FROM " + Helper.TABLE_NAME2 + " WHERE " + Helper.USERNAME + " = '$username' " + " AND " + Helper.PASSWORD + " = '$password' ", null)
     }
 
+    fun updatePassword(username: String, new_password: String){
+        val values = ContentValues()
+
+        values.put(Helper.PASSWORD, new_password)
+
+        val db = this.writableDatabase
+
+        db.update(Helper.TABLE_NAME2, values, Helper.USERNAME + " = '$username' ", null)
+    }
+
     // below method is to get
     // all data from our database
     fun getUang(): Cursor? {

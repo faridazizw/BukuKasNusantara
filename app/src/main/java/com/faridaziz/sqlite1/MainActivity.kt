@@ -20,6 +20,13 @@ import kotlin.collections.ArrayList
 import kotlin.math.E
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
+
+    companion object{
+        const val extra_username = "username"
+    }
+
+    var username = "username"
+
     @SuppressLint("Range")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +39,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         val tv_pengeluaran : TextView = findViewById(R.id.tv_pengeluaran)
         val tv_pemasukan : TextView = findViewById(R.id.tv_pemasukan)
+
+        //dump
+//        val tv_username : TextView = findViewById(R.id.tv_username)
+        username = intent.getStringExtra(extra_username).toString()
+//        tv_username.setText(username)
 
         val swipeRefreshLayout : SwipeRefreshLayout = findViewById(R.id.container)
 
@@ -121,21 +133,25 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         when (p0?.id){
             R.id.btn_tambahPemasukan ->{
                 val intentTambahPemasukan = Intent(this@MainActivity, TambahPemasukanActivity::class.java)
+                intentTambahPemasukan.putExtra(TambahPemasukanActivity.extra_username, username)
                 startActivity(intentTambahPemasukan)
                 finish()
             }
             R.id.btn_tambahPengeluaran ->{
                 val intentTambahPengeluaran = Intent(this@MainActivity, TambahPengeluaranActivity::class.java)
+                intentTambahPengeluaran.putExtra(TambahPengeluaranActivity.extra_username, username)
                 startActivity(intentTambahPengeluaran)
                 finish()
             }
             R.id.btn_detailCashFlow ->{
                 val intentDetailCashFlow = Intent(this@MainActivity, DetailCashFlowActivity::class.java)
+                intentDetailCashFlow.putExtra(DetailCashFlowActivity.extra_username, username)
                 startActivity(intentDetailCashFlow)
                 finish()
             }
             R.id.btn_pengaturan ->{
                 val intentPengaturan = Intent(this@MainActivity, PengaturanActivity::class.java)
+                intentPengaturan.putExtra(PengaturanActivity.extra_username, username)
                 startActivity(intentPengaturan)
                 finish()
             }

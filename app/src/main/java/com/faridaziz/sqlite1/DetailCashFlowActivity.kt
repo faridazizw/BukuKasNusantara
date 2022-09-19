@@ -15,6 +15,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class DetailCashFlowActivity : AppCompatActivity() {
+    companion object{
+        const val extra_username = "username"
+    }
+
+    var username = "username"
 
     @SuppressLint("Range")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +44,8 @@ class DetailCashFlowActivity : AppCompatActivity() {
         recyclerView.layoutManager = layoutManager
         recyclerView.itemAnimator = DefaultItemAnimator()
         recyclerView.adapter = adapterRV
+
+        username = intent.getStringExtra(MainActivity.extra_username).toString()
 
         //read sqlide data
         val db = Helper(this, null)
@@ -69,6 +76,7 @@ class DetailCashFlowActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         val back = Intent(this@DetailCashFlowActivity, MainActivity::class.java)
+        back.putExtra(MainActivity.extra_username, username)
         overridePendingTransition(0, 0)
         startActivity(back)
         overridePendingTransition(0, 0)
